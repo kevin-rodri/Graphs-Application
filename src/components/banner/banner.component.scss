@@ -1,0 +1,23 @@
+.banner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border: 1px solid black;
+  gap: 1rem;;
+  padding: 1rem;
+}
+
+.image {
+  width: 10rem;
+}
+
+@media (width <= 768px) {
+  .banner-container {
+    padding-top: 0.5rem;
+    flex-direction: column;
+  }
+  .image {
+    width: 5rem;
+  }
+}
