@@ -60,12 +60,6 @@ export class ChartComponent {
   protected readonly isDownloadDisabled = computed(
     () => (this.selectedDataType() == null || this.selectedChartType() == null) || (this.selectedDataType() === 'custom' && this.hasNoData())
   );
-  protected readonly isSearchDisabled = computed(
-    () =>
-      this.selectedDataType() === "weather" &&
-      (this.latitude.value != null || this.longitude.value != null)
-  );
-
   chart: Chart | null = null;
   protected readonly selectedChartType = signal<ChartType | null>(null);
   protected readonly selectedDataType = signal<DataTypeOption | null>(null);
