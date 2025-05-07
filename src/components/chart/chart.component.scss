@@ -1,6 +1,7 @@
 .chart-container {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 .chart-header {
@@ -9,46 +10,71 @@
   align-items: center;
   gap: 1rem;
 }
+
+.coordinates-container,
 .chart-options-container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
 }
 
-.chart {
-  width: 50rem;
-  height: 50rem;
+canvas {
+    width: 100%;
+    max-width: 55rem;
+    max-height: 55rem;
+    border: 1px solid black;
+    padding: 1rem;
 }
 
 .chart-display-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+  
 }
 
-@media (width <= 768px) {
+@media (max-width: 768px) {
   .chart-container {
-    padding-top: 0.5rem;
     flex-direction: column;
     padding: 1rem;
   }
 
   .chart-header,
+  .coordinates-container,
   .chart-options-container {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
   }
-  .chart {
-    width: 10rem;
-    height: 10rem;
+
+
+  .chart-display-container {
+    flex-direction: column;
+    padding: 0.5rem;
+  }
+  canvas {
+    max-width: 20rem;
+    max-height: 20rem;
   }
 }
 
-.search-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem 0;
-  }
-  
+h4 {
+  margin: 0;
+}
+.file-input {
+  display: none;
+}
+
+// Add borders to our buttons since they're just icons 
+.icon-button {
+  border: 1px solid black;
+  border-radius: 0.25rem;
+  // This is set to this value after inspecting the dimensions of the dropdowns. Not a fan of it but it gets the job done
+  // Also, if curious, I set these to rem instead of pixels for responsive design purposes
+  height: 3.5rem;
+}

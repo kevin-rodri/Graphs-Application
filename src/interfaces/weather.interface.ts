@@ -24,3 +24,4 @@ export interface HourlyWeather {
   precipitation_probability: number[];
   temperature_2m: number[];
 }
+

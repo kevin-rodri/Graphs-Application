@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { Weather } from '../../interfaces/weather.interface';
 /*
 Weather Service resposible for fetching weather data from the API - https://open-meteo.com/en/docs

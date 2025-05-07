@@ -8,65 +8,99 @@
     </h4>
   </div>
   <div class="chart-options-container">
-    <mat-form-field>
-      <mat-label>Choose a graph option</mat-label>
+    <mat-form-field appearance="outline">
+      <mat-label>Select a graph option</mat-label>
       <mat-select
         [value]="selectedChartType()"
         (valueChange)="selectedChartType.set($event)"
+        appearance="outline"
       >
-        <mat-option value="bar">Bar (Vertical)</mat-option>
-        <mat-option value="line">Line</mat-option>
+        <mat-option value="bar">Bar</mat-option>
         <mat-option value="doughnut">Doughnut</mat-option>
+        <mat-option value="line">Line</mat-option>
         <mat-option value="pie">Pie</mat-option>
-        <mat-option value="radar">Radar</mat-option>
         <mat-option value="polarArea">Polar Area</mat-option>
-        <mat-option value="bubble">Bubble</mat-option>
-        <mat-option value="scatter">Scatter</mat-option>
+        <mat-option value="radar">Radar</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Choose what type of data you're interested in</mat-label>
+    <mat-form-field appearance="outline">
+      <mat-label>Select a data category</mat-label>
       <mat-select
         [value]="selectedDataType()"
         (valueChange)="selectedDataType.set($event)"
       >
-        <mat-option value="weather">Weather</mat-option>
-        <mat-option value="stocks">Stocks</mat-option>
+        <mat-option value="custom">Custom</mat-option>
         <mat-option value="gdp">GDP</mat-option>
+        <!---I ran out of API calls :/-->
+        <!-- <mat-option value="stocks">Stocks</mat-option> -->
+        <mat-option value="weather">Weather</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <button mat-stroked-button (click)="onDownloadChart()">
-      Download Chart
+    <button
+      mat-icon-button
+      class="icon-button"
+      title="Download Chart"
+      [disabled]="isDownloadDisabled()"
+      (click)="onDownloadChart()"
+    >
+      <mat-icon>download</mat-icon>
     </button>
-    <!--- Won't support weather, sorry-->
+
     @if (selectedDataType() === 'stocks' || selectedDataType() === 'gdp') {
-    <!-- <mat-form-field class="search-field">
-      <input matInput [formControl]="searchValue" placeholder="Search" />
-      <button mat-stroked-button (click)="onSearch()">
-        <mat-icon aria-label="Search icon" fontIcon="search"></mat-icon>
-      </button>
-    </mat-form-field> -->
+    <!---https://material.angular.dev/components/button/overview -->
     <mat-form-field class="search-bar" appearance="outline">
-        <mat-label>Search</mat-label>
-        <input matInput type="text" [formControl]="searchValue" (keyup.enter)="onSearch()" />
-        <button mat-icon-button matSuffix (click)="onSearch()" aria-label="Search">
-          <mat-icon>search</mat-icon>
-        </button>
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        type="text"
+        [formControl]="searchValue"
+        (keyup.enter)="onSearch()"
+      />
+      <button mat-icon-button matSuffix  class="icon-button" (click)="onSearch()" title="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    } @if (selectedDataType() === 'weather') {
+    <div class="coordinates-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Latitude</mat-label>
+        <input matInput type="number" [formControl]="latitude" />
       </mat-form-field>
-      
+
+      <mat-form-field appearance="outline">
+        <mat-label>Longitude</mat-label>
+        <input matInput type="number" [formControl]="longitude" />
+      </mat-form-field>
+      <button
+        mat-icon-button
+        matSuffix
+        class="icon-button"
+        (click)="onSearch()"
+        [disabled]="isSearchDisabled()"
+        title="Search"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+    } @if (selectedDataType() === 'custom') {
+    <button mat-icon-button  class="icon-button" (click)="uploadFile.click()" title="Upload CSV">
+      <mat-icon>upload_file</mat-icon>
+    </button>
+    <input
+      #uploadFile
+      (change)="upload($event)"
+      type="file"
+      accept=".csv"
+      class="file-input"
+    />
     }
   </div>
 
-  <!-- button to import your own csv file with -->
-  <!-- <button mat-raised-button color="primary" (click)="onImportCSV()">Import CSV</button>
-    <input type="file" (change)="onFileSelected($event)" accept=".csv" /> -->
+  @if (selectedChartType() != null && selectedDataType() != null && hasNoData()) {
   <div class="chart-display-container">
-    @if (isLoading) {
-    <mat-progress-spinner></mat-progress-spinner>
-    } @else {
-    <canvas id="ser375Chart" class="chart"></canvas>
-    }
+    <canvas id="ser375Chart"></canvas>
   </div>
+    }
 </div>
