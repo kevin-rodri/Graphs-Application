@@ -20,7 +20,7 @@ export class StockService {
 
   private getStock(stockName: string): Observable<Stock> {
     return this.http
-      .get<Stock>(`${this.API_URL}${stockName}&apikey=NFRQXED00M8V9O1O`)
+      .get<Stock>(`${this.API_URL}${stockName}&apikey=${process.env['API_KEY']}`)
       .pipe(
         map((response: any) => {
           const metaData = response["Meta Data"];
