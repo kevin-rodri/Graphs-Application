@@ -39,6 +39,7 @@
     "@types/dotenv-webpack": "^7.0.8",
     "@types/express": "^4.17.17",
     "@types/jasmine": "~5.1.0",
+    "@types/next": "^8.0.7",
     "@types/node": "^18.19.87",
     "dotenv-webpack": "^8.1.0",
     "jasmine-core": "~5.1.0",
